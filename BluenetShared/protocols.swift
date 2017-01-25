@@ -1,6 +1,6 @@
 //
 //  protocols.swift
-//  bluenet-ios-shared
+//  BluenetShared
 //
 //  Created by Alex de Mulder on 25/01/2017.
 //  Copyright © 2017 Alex de Mulder. All rights reserved.

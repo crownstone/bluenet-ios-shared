@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>bluenet-ios-shared.xcscheme_^#shared#^_</key>
+		<key>BluenetShared.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>FA404C8B1E38B9A00035AD12</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FA404C941E38B9A00035AD12</key>
+		<key>FA58822A1E38BDB300913AE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA404C8B1E38B9A00035AD12"
-               BuildableName = "bluenet-ios-shared.framework"
-               BlueprintName = "bluenet-ios-shared"
-               ReferencedContainer = "container:bluenet-ios-shared.xcodeproj">
+               BlueprintIdentifier = "FA58822A1E38BDB300913AE6"
+               BuildableName = "BluenetShared.framework"
+               BlueprintName = "BluenetShared"
+               ReferencedContainer = "container:BluenetShared.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA404C941E38B9A00035AD12"
-               BuildableName = "bluenet-ios-sharedTests.xctest"
-               BlueprintName = "bluenet-ios-sharedTests"
-               ReferencedContainer = "container:bluenet-ios-shared.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA404C8B1E38B9A00035AD12"
-            BuildableName = "bluenet-ios-shared.framework"
-            BlueprintName = "bluenet-ios-shared"
-            ReferencedContainer = "container:bluenet-ios-shared.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA404C8B1E38B9A00035AD12"
-            BuildableName = "bluenet-ios-shared.framework"
-            BlueprintName = "bluenet-ios-shared"
-            ReferencedContainer = "container:bluenet-ios-shared.xcodeproj">
+            BlueprintIdentifier = "FA58822A1E38BDB300913AE6"
+            BuildableName = "BluenetShared.framework"
+            BlueprintName = "BluenetShared"
+            ReferencedContainer = "container:BluenetShared.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA404C8B1E38B9A00035AD12"
-            BuildableName = "bluenet-ios-shared.framework"
-            BlueprintName = "bluenet-ios-shared"
-            ReferencedContainer = "container:bluenet-ios-shared.xcodeproj">
+            BlueprintIdentifier = "FA58822A1E38BDB300913AE6"
+            BuildableName = "BluenetShared.framework"
+            BlueprintName = "BluenetShared"
+            ReferencedContainer = "container:BluenetShared.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

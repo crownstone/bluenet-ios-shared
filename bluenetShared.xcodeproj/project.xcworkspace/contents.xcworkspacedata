@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:bluenet-ios-shared.xcodeproj">
+      location = "self:BluenetShared.xcodeproj">
    </FileRef>
 </Workspace>
