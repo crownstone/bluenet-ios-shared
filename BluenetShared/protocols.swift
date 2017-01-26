@@ -14,5 +14,5 @@ public protocol iBeaconPacketProtocol {
 }
 
 public protocol LocalizationClassifier {
-    func classify(_ inputVector: [iBeaconPacketProtocol], collectionId: String) -> String?
+    func classify(_ inputVector: [iBeaconPacketProtocol], referenceId: String) -> String?
 }
