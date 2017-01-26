@@ -1,4 +1,7 @@
 # bluenet-ios-shared
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 This houses the protocols or datatypes that are shared among modules of the iOS lib.
 
 This module is made to work with Carthage. 
