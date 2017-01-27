@@ -29,21 +29,21 @@ open class LogClass {
     
     var daysToStoreLogs : Int = 3
     
-    init() {
+    public init() {
         cleanLogs()
     }
     
-    init(daysToStoreLogs: Int) {
+    public init(daysToStoreLogs: Int) {
         self.daysToStoreLogs = daysToStoreLogs
         cleanLogs()
     }
     
-    init(logBaseFilename: String) {
+    public init(logBaseFilename: String) {
         self.logBaseFilename = logBaseFilename
         cleanLogs()
     }
     
-    init(daysToStoreLogs:Int, logBaseFilename: String) {
+    public init(daysToStoreLogs:Int, logBaseFilename: String) {
         self.daysToStoreLogs = daysToStoreLogs
         self.logBaseFilename = logBaseFilename
         cleanLogs()
@@ -71,23 +71,23 @@ open class LogClass {
     }
     
     open func verbose(_ data: String) {
-        _log(data, level: .VERBOSE, explicitNoWriteToFile: false)
+        _log("-- VERBOSE: \(data)", level: .VERBOSE, explicitNoWriteToFile: false)
     }
     
     open func debug(_ data: String) {
-        _log(data, level: .DEBUG, explicitNoWriteToFile: false)
+        _log("-- DEBUG: \(data)", level: .DEBUG, explicitNoWriteToFile: false)
     }
     
     open func info(_ data: String) {
-        _log(data, level: .INFO, explicitNoWriteToFile: false)
+        _log("-- INFO: \(data)", level: .INFO, explicitNoWriteToFile: false)
     }
     
     open func warn(_ data: String) {
-        _log(data, level: .WARN, explicitNoWriteToFile: false)
+        _log("-- WARN: \(data)", level: .WARN, explicitNoWriteToFile: false)
     }
     
     open func error(_ data: String) {
-        _log(data, level: .ERROR, explicitNoWriteToFile: false)
+        _log("-- ERROR: \(data)", level: .ERROR, explicitNoWriteToFile: false)
     }
     
     open func fileError(_ data: String) {
@@ -95,7 +95,7 @@ open class LogClass {
     }
     
     open func file(_ data: String) {
-        _logFile(data, filenameBase: logBaseFilename)
+        _logFile("-- FILE: \(data)", filenameBase: logBaseFilename)
     }
     
     open func clearLogs() {
