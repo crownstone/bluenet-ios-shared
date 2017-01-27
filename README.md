@@ -92,7 +92,19 @@ LOG.setDaysToStoreLogs(daysToStoreLogs: Int)
 
 ```
 
-You can manually clean the logs or clear the logs. Cleaning means all log files that are older than the amount of days will be deleted. Clearing can delete all log files (configurable). The Logger performs a clean on init, change of amount of days and after changing the base filename. Clearing is done before changing the base filename or manually. The following methods are available:
+You can manually clean the logs or clear the logs. Cleaning means all log files that are older than the amount of days will be deleted. Clearing can delete all log files (configurable). 
+
+The Logger performs a clean on:
+- init
+- change of amount of days (setDaysToStoreLogs)
+- after changing the base filename. (setBaseFilename)
+- manually (cleanLogs)
+
+Clearing is done on:
+- changing the base filename  (setBaseFilename)
+- manually. 
+
+The following methods are available:
 
 ```swift
 
