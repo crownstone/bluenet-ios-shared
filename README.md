@@ -102,7 +102,8 @@ open func clearLogs() {}
 // remove logfiles older than configured amount of days
 open func cleanLogs() {}
 
-// custom clear method. If keepAmountOfDays = 0, all will be removed, if it is 3, the logs of the last 3 days will be kept.
+// custom clear method. If keepAmountOfDays = 0, all will be removed, 
+//   if it is 3, the logs of the last 3 days will be kept.
 open func clearLogs(keepAmountOfDays: Int) {}
 
 ```
