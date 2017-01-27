@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA5882301E38BDB300913AE6 /* BluenetShared.h in Headers */ = {isa = PBXBuildFile; fileRef = FA58822E1E38BDB300913AE6 /* BluenetShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA5882371E38BDC000913AE6 /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5882361E38BDC000913AE6 /* protocols.swift */; };
+		FA76E01B1E3B929F003850D7 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76E01A1E3B929F003850D7 /* Logging.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		FA58822E1E38BDB300913AE6 /* BluenetShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluenetShared.h; sourceTree = "<group>"; };
 		FA58822F1E38BDB300913AE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA5882361E38BDC000913AE6 /* protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
+		FA76E01A1E3B929F003850D7 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 				FA58822E1E38BDB300913AE6 /* BluenetShared.h */,
 				FA58822F1E38BDB300913AE6 /* Info.plist */,
 				FA5882361E38BDC000913AE6 /* protocols.swift */,
+				FA76E01A1E3B929F003850D7 /* Logging.swift */,
 			);
 			path = BluenetShared;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA5882371E38BDC000913AE6 /* protocols.swift in Sources */,
+				FA76E01B1E3B929F003850D7 /* Logging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
