@@ -18,6 +18,8 @@
 		FA58822F1E38BDB300913AE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA5882361E38BDC000913AE6 /* protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		FA76E01A1E3B929F003850D7 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		FA76E01C1E3B93B9003850D7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FA76E01D1E3B93C2003850D7 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +38,8 @@
 			children = (
 				FA58822D1E38BDB300913AE6 /* BluenetShared */,
 				FA58822C1E38BDB300913AE6 /* Products */,
+				FA76E01D1E3B93C2003850D7 /* Cartfile */,
+				FA76E01C1E3B93B9003850D7 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};

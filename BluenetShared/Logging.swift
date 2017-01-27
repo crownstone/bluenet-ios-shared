@@ -65,6 +65,11 @@ open class LogClass {
         cleanLogs()
     }
     
+    open func setDaysToStoreLogs(daysToStoreLogs: Int) {
+        self.daysToStoreLogs = daysToStoreLogs
+        cleanLogs()
+    }
+    
     open func verbose(_ data: String) {
         _log(data, level: .VERBOSE, explicitNoWriteToFile: false)
     }
@@ -89,27 +94,22 @@ open class LogClass {
         _log(data, level: .ERROR, explicitNoWriteToFile: true)
     }
     
-    open func file(_ data: String, filenameBase: String) {
-        _logFile(data, filenameBase: logBaseFilename)
-    }
-    
     open func file(_ data: String) {
         _logFile(data, filenameBase: logBaseFilename)
     }
     
-    
     open func clearLogs() {
-        clearLogs(storeAmountOfDays: 0)
+        clearLogs(keepAmountOfDays: 0)
     }
     
     open func cleanLogs() {
-        clearLogs(storeAmountOfDays: daysToStoreLogs)
+        clearLogs(keepAmountOfDays: daysToStoreLogs)
     }
     
-    open func clearLogs(storeAmountOfDays: Int) {
+    open func clearLogs(keepAmountOfDays: Int) {
         var allowedNames = Set<String>()
-        if (storeAmountOfDays > 0) {
-            for i in [Int](0...storeAmountOfDays-1) {
+        if (keepAmountOfDays > 0) {
+            for i in [Int](0...keepAmountOfDays-1) {
                 let date = Date().addingTimeInterval((-24 * 3600 * Double(i)))
                 allowedNames.insert(_getFilename(filenameBase: self.logBaseFilename, date: date))
             }
