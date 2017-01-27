@@ -123,10 +123,11 @@ open class LogClass {
                 if (filename.contains(self.logBaseFilename)) {
                     if (allowedNames.contains(filename) == false) {
                         do {
+                            self.fileError("Attempting to remove \(file.absoluteString)")
                             try filemanager.removeItem(atPath: file.absoluteString)
                         }
-                        catch {
-                            self.fileError("Could not remove file \(filename) at \(file.absoluteString)")
+                        catch let err {
+                            self.fileError("Could not remove file \(filename) at \(file.absoluteString) due to: \(err)")
                         }
                     }
                 }
