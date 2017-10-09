@@ -26,6 +26,7 @@ open class LogClass {
     var logPrintLevel : LogLevel = .INFO
     var logFileLevel  : LogLevel = .NONE
     var logBaseFilename : String = "BluenetLog"
+    var printTimestamps : Bool = false
     
     var daysToStoreLogs : Int = 3
     
@@ -54,6 +55,9 @@ open class LogClass {
     }
     open func setFileLevel(_ level : LogLevel) {
         logFileLevel = level
+    }
+    open func setTimestampPrinting( newState: Bool ) {
+        printTimestamps = newState
     }
     
     /**
@@ -141,7 +145,14 @@ open class LogClass {
     
     func _log(_ data: String, level: LogLevel, explicitNoWriteToFile: Bool = false) {
         if (logPrintLevel.rawValue <= level.rawValue) {
-            print(data)
+            if (printTimestamps) {
+                let timestamp = Date().timeIntervalSince1970
+                let time = Date().description
+                print("\(timestamp) @ \(time) \(data)")
+            }
+            else {
+                print(data)
+            }
         }
         if (logFileLevel.rawValue <= level.rawValue && explicitNoWriteToFile == false) {
             _logFile(data, filenameBase: logBaseFilename)
