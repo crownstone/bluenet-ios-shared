@@ -28,6 +28,8 @@ open class LogClass {
     var logBaseFilename : String = "BluenetLog"
     var printTimestamps : Bool = false
     
+    var lastTimestamp : Double = 0
+    
     var daysToStoreLogs : Int = 3
     
     public init() {
@@ -148,7 +150,9 @@ open class LogClass {
             if (printTimestamps) {
                 let timestamp = Date().timeIntervalSince1970
                 let time = Date().description
-                print("\(timestamp) @ \(time) \(data)")
+                let deltaT = timestamp - self.lastTimestamp
+                self.lastTimestamp = timestamp
+                print("\(timestamp) (dt: \(deltaT)) @ \(time) \(data)")
             }
             else {
                 print(data)
