@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+public typealias voidCallback = () -> Void
+
 public protocol iBeaconPacketProtocol {
     var rssi : NSNumber { get }
     var idString: String { get }
@@ -15,4 +18,5 @@ public protocol iBeaconPacketProtocol {
 
 public protocol LocalizationClassifier {
     func classify(_ inputVector: [iBeaconPacketProtocol], referenceId: String) -> String?
+    func subscribe(_ topic: String, callback: @escaping (_ notification: Any) -> Void) -> voidCallback
 }
