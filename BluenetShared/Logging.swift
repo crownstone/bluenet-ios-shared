@@ -115,7 +115,7 @@ open class LogClass {
     open func clearLogs(keepAmountOfDays: Int) {
         var allowedNames = Set<String>()
         if (keepAmountOfDays > 0) {
-            for i in [Int](0...keepAmountOfDays-1) {
+            for i in [Int](0...keepAmountOfDays) {
                 let date = Date().addingTimeInterval((-24 * 3600 * Double(i)))
                 allowedNames.insert(_getFilename(filenameBase: self.logBaseFilename, date: date))
             }

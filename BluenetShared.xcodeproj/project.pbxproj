@@ -111,7 +111,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FA5882251E38BDB300913AE6 /* Build configuration list for PBXProject "bluenetShared" */;
+			buildConfigurationList = FA5882251E38BDB300913AE6 /* Build configuration list for PBXProject "BluenetShared" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -315,7 +315,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FA5882251E38BDB300913AE6 /* Build configuration list for PBXProject "bluenetShared" */ = {
+		FA5882251E38BDB300913AE6 /* Build configuration list for PBXProject "BluenetShared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA5882311E38BDB300913AE6 /* Debug */,
