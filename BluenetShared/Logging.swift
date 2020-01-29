@@ -176,8 +176,10 @@ open class LogClass {
         let battery = UIDevice.current.batteryLevel
         
         let timestamp = Date().timeIntervalSince1970
-        let time = Date().description
-        let content = "\(timestamp) @ \(time) - battery:\(battery) - " + data + "\n"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
+        let dateInFormat = dateFormatter.string(from: Date())
+        let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - " + data + "\n"
         let contentToWrite = content.data(using: String.Encoding.utf8)!
         
         if let fileHandle = FileHandle(forWritingAtPath: url.path) {
