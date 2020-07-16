@@ -12,11 +12,11 @@ import UIKit
 
 public enum LogLevel : Int {
     case VERBOSE = 0
-    case DEBUG
-    case INFO
-    case WARN
-    case ERROR
-    case NONE
+    case DEBUG   = 1
+    case INFO    = 2
+    case WARN    = 3
+    case ERROR   = 4
+    case NONE    = 5
 }
 
 

@@ -17,6 +17,8 @@ public protocol iBeaconPacketProtocol {
 }
 
 public protocol LocalizationClassifier {
+    
+    func setDebugging(debug: Bool)
     func classify(_ inputVector: [iBeaconPacketProtocol], referenceId: String) -> String?
     func subscribe(_ topic: String, callback: @escaping (_ notification: Any) -> Void) -> voidCallback
 }
