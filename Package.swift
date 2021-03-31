@@ -22,9 +22,9 @@ let package = Package(
             name: "BluenetShared",
             dependencies: [],
             path:"Sources"),
-        .testTarget(
-            name: "BluenetSharedTests",
-            dependencies: ["BluenetShared"],
-            path:"Tests"),
+//        .testTarget(
+//            name: "BluenetSharedTests",
+//            dependencies: ["BluenetShared"],
+//            path:"Tests"),
     ]
 )
