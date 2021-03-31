@@ -171,9 +171,12 @@ open class LogClass {
         
         let url = dir.appendingPathComponent(filename)
         
-        UIDevice.current.isBatteryMonitoringEnabled = true
-        
-        let battery = UIDevice.current.batteryLevel
+        #if os(iOS)
+            UIDevice.current.isBatteryMonitoringEnabled = true
+            let battery = UIDevice.current.batteryLevel
+        #else
+            let battery = 255
+        #endif
         
         let timestamp = Date().timeIntervalSince1970
         let dateFormatter = DateFormatter()

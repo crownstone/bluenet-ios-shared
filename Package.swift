@@ -7,6 +7,7 @@ let package = Package(
     name: "BluenetShared",
     platforms: [
         .iOS(.v10),
+        .watchOS(.v4),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
