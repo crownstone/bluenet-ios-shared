@@ -113,34 +113,35 @@ open class LogClass {
     }
     
     open func clearLogs(keepAmountOfDays: Int) {
-        var allowedNames = Set<String>()
-        if (keepAmountOfDays > 0) {
-            for i in [Int](0...keepAmountOfDays) {
-                let date = Date().addingTimeInterval((-24 * 3600 * Double(i)))
-                allowedNames.insert(_getFilename(filenameBase: self.logBaseFilename, date: date))
+        #if os(iOS)
+            var allowedNames = Set<String>()
+            if (keepAmountOfDays > 0) {
+                for i in [Int](0...keepAmountOfDays) {
+                    let date = Date().addingTimeInterval((-24 * 3600 * Double(i)))
+                    allowedNames.insert(_getFilename(filenameBase: self.logBaseFilename, date: date))
+                }
             }
-        }
-        
-        let filemanager = FileManager()
-        let files = try? filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-        if let filesFound = files {
-            for file in filesFound {
-                let filename = file.lastPathComponent
-                if (filename.contains(self.logBaseFilename)) {
-                    if (allowedNames.contains(filename) == false) {
-                        do {
-                            self.fileError("Attempting to remove \(filename)")
-                            try filemanager.removeItem(atPath: file.path)
-                            self.fileError("Removed \(filename)")
-                        }
-                        catch let err {
-                            self.fileError("Could not remove file \(filename) at \(file.path) due to: \(err)")
+            
+            let filemanager = FileManager()
+            let files = try? filemanager.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
+            if let filesFound = files {
+                for file in filesFound {
+                    let filename = file.lastPathComponent
+                    if (filename.contains(self.logBaseFilename)) {
+                        if (allowedNames.contains(filename) == false) {
+                            do {
+                                self.fileError("Attempting to remove \(filename)")
+                                try filemanager.removeItem(atPath: file.path)
+                                self.fileError("Removed \(filename)")
+                            }
+                            catch let err {
+                                self.fileError("Could not remove file \(filename) at \(file.path) due to: \(err)")
+                            }
                         }
                     }
                 }
             }
-        }
-        
+        #endif
     }
     
     
@@ -165,41 +166,38 @@ open class LogClass {
     
     
     func _logFile(_ data: String, filenameBase: String) {
-        
-        let date = Date()
-        let filename = _getFilename(filenameBase: filenameBase, date: date);
-        
-        let url = dir.appendingPathComponent(filename)
-        
         #if os(iOS)
+            let date = Date()
+            let filename = _getFilename(filenameBase: filenameBase, date: date);
+            
+            let url = dir.appendingPathComponent(filename)
+            
             UIDevice.current.isBatteryMonitoringEnabled = true
             let battery = UIDevice.current.batteryLevel
-        #else
-            let battery = 255
+            
+            let timestamp = Date().timeIntervalSince1970
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
+            let dateInFormat = dateFormatter.string(from: Date())
+            let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - " + data + "\n"
+            let contentToWrite = content.data(using: String.Encoding.utf8)!
+            
+            if let fileHandle = FileHandle(forWritingAtPath: url.path) {
+                defer {
+                    fileHandle.closeFile()
+                }
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(contentToWrite)
+            }
+            else {
+                do {
+                    try contentToWrite.write(to: url, options: .atomic)
+                }
+                catch {
+                    self.fileError("Could not write to file \(error)")
+                }
+            }
         #endif
-        
-        let timestamp = Date().timeIntervalSince1970
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
-        let dateInFormat = dateFormatter.string(from: Date())
-        let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - " + data + "\n"
-        let contentToWrite = content.data(using: String.Encoding.utf8)!
-        
-        if let fileHandle = FileHandle(forWritingAtPath: url.path) {
-            defer {
-                fileHandle.closeFile()
-            }
-            fileHandle.seekToEndOfFile()
-            fileHandle.write(contentToWrite)
-        }
-        else {
-            do {
-                try contentToWrite.write(to: url, options: .atomic)
-            }
-            catch {
-                self.fileError("Could not write to file \(error)")
-            }
-        }
     }
     
     func _getFilename(filenameBase: String, date: Date) -> String {
