@@ -19,6 +19,27 @@ public enum LogLevel : Int {
     case NONE    = 5
 }
 
+func memoryFootprint() -> Float? {
+    // The `TASK_VM_INFO_COUNT` and `TASK_VM_INFO_REV1_COUNT` macros are too
+    // complex for the Swift C importer, so we have to define them ourselves.
+    let TASK_VM_INFO_COUNT = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<integer_t>.size)
+    let TASK_VM_INFO_REV1_COUNT = mach_msg_type_number_t(MemoryLayout.offset(of: \task_vm_info_data_t.min_address)! / MemoryLayout<integer_t>.size)
+    var info = task_vm_info_data_t()
+    var count = TASK_VM_INFO_COUNT
+    let kr = withUnsafeMutablePointer(to: &info) { infoPtr in
+        infoPtr.withMemoryRebound(to: integer_t.self, capacity: Int(count)) { intPtr in
+            task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), intPtr, &count)
+        }
+    }
+    guard
+        kr == KERN_SUCCESS,
+        count >= TASK_VM_INFO_REV1_COUNT
+    else { return nil }
+    
+    let usedBytes = Float(info.phys_footprint)
+    return usedBytes
+    
+}
 
 open class LogClass {
     let dir: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last! as URL
@@ -174,12 +195,15 @@ open class LogClass {
             
             UIDevice.current.isBatteryMonitoringEnabled = true
             let battery = UIDevice.current.batteryLevel
+        
+            let usedBytes: UInt64? = UInt64(memoryFootprint() ?? 0)
+            let usedMB = Double(usedBytes ?? 0) / 1024 / 1024
             
             let timestamp = Date().timeIntervalSince1970
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
             let dateInFormat = dateFormatter.string(from: Date())
-            let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - " + data + "\n"
+            let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - ram:\(usedMB)MB - " + data + "\n"
             let contentToWrite = content.data(using: String.Encoding.utf8)!
             
             if let fileHandle = FileHandle(forWritingAtPath: url.path) {
