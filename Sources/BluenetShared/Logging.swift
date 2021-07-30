@@ -7,8 +7,10 @@
 //
 
 import Foundation
-import UIKit
 
+#if os(iOS)
+import UIKit
+#endif
 
 public enum LogLevel : Int {
     case VERBOSE = 0
