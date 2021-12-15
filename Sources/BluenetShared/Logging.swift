@@ -43,6 +43,8 @@ func memoryFootprint() -> Float? {
     
 }
 
+let semaphore = DispatchSemaphore(value: 1)
+
 open class LogClass {
     let dir: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last! as URL
     
@@ -76,13 +78,19 @@ open class LogClass {
     }
     
     open func setPrintLevel(_ level : LogLevel) {
+        semaphore.wait()
         logPrintLevel = level
+        semaphore.signal()
     }
     open func setFileLevel(_ level : LogLevel) {
+        semaphore.wait()
         logFileLevel = level
+        semaphore.signal()
     }
     open func setTimestampPrinting( newState: Bool ) {
+        semaphore.wait()
         printTimestamps = newState
+        semaphore.signal()
     }
     
     /**
@@ -124,7 +132,9 @@ open class LogClass {
     }
     
     open func file(_ data: String) {
+        semaphore.wait()
         _logFile("-- FILE: \(data)", filenameBase: logBaseFilename)
+        semaphore.signal()
     }
     
     open func clearLogs() {
@@ -137,6 +147,7 @@ open class LogClass {
     
     open func clearLogs(keepAmountOfDays: Int) {
         #if os(iOS)
+        semaphore.wait()
             var allowedNames = Set<String>()
             if (keepAmountOfDays > 0) {
                 for i in [Int](0...keepAmountOfDays) {
@@ -164,12 +175,14 @@ open class LogClass {
                     }
                 }
             }
+        semaphore.signal()
         #endif
     }
     
     
     
     func _log(_ data: String, level: LogLevel, explicitNoWriteToFile: Bool = false) {
+        semaphore.wait()
         if (logPrintLevel.rawValue <= level.rawValue) {
             if (printTimestamps) {
                 let timestamp = Date().timeIntervalSince1970
@@ -185,6 +198,7 @@ open class LogClass {
         if (logFileLevel.rawValue <= level.rawValue && explicitNoWriteToFile == false) {
             _logFile(data, filenameBase: logBaseFilename)
         }
+        semaphore.signal()
     }
     
     
