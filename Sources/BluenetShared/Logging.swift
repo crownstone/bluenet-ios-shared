@@ -127,9 +127,6 @@ open class LogClass {
         _log("-- ERROR: \(data)", level: .ERROR, explicitNoWriteToFile: false)
     }
     
-    open func fileError(_ data: String) {
-        _log(data, level: .ERROR, explicitNoWriteToFile: true)
-    }
     
     open func file(_ data: String) {
         semaphore.wait()
@@ -164,12 +161,10 @@ open class LogClass {
                     if (filename.contains(self.logBaseFilename)) {
                         if (allowedNames.contains(filename) == false) {
                             do {
-                                self.fileError("Attempting to remove \(filename)")
                                 try filemanager.removeItem(atPath: file.path)
-                                self.fileError("Removed \(filename)")
                             }
                             catch let err {
-                                self.fileError("Could not remove file \(filename) at \(file.path) due to: \(err)")
+                                print("Could not remove file \(filename) at \(file.path) due to: \(err)")
                             }
                         }
                     }
@@ -234,7 +229,7 @@ open class LogClass {
                     try contentToWrite.write(to: url, options: .atomic)
                 }
                 catch {
-                    self.fileError("Could not write to file \(error)")
+                    print("Could not write to file \(error)")
                 }
             }
         #endif
