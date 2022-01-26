@@ -262,7 +262,7 @@ open class LogClass {
             
             let timestamp = Date().timeIntervalSince1970
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let dateInFormat = dateFormatter.string(from: Date())
             let content = "\(round(1000*timestamp)) @ \(dateInFormat) - battery:\(battery) - ram:\(usedMB)MB - " + data + "\n"
             let contentToWrite = content.data(using: String.Encoding.utf8)!
