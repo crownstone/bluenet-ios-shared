@@ -43,9 +43,10 @@ func memoryFootprint() -> Float? {
     
 }
 
-let semaphore = DispatchSemaphore(value: 1)
 
 open class LogClass {
+    let lock = NSRecursiveLock()
+    
     let dir: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last! as URL
     
     var logPrintLevel : LogLevel = .INFO
@@ -78,73 +79,117 @@ open class LogClass {
     }
     
     open func setPrintLevel(_ level : LogLevel) {
-        semaphore.wait()
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
         logPrintLevel = level
-        semaphore.signal()
     }
     open func setFileLevel(_ level : LogLevel) {
-        semaphore.wait()
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
         logFileLevel = level
-        semaphore.signal()
     }
     open func setTimestampPrinting( newState: Bool ) {
-        semaphore.wait()
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
         printTimestamps = newState
-        semaphore.signal()
     }
     
     /**
      * Will remove all logs that have a different name before changing the name.
      */
     open func setBaseFilename(baseFilename: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         clearLogs()
         logBaseFilename = baseFilename
         cleanLogs()
     }
     
     open func setDaysToStoreLogs(daysToStoreLogs: Int) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         self.daysToStoreLogs = daysToStoreLogs
         cleanLogs()
     }
     
     open func verbose(_ data: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _log("-- VERBOSE: \(data)", level: .VERBOSE, explicitNoWriteToFile: false)
     }
     
     open func debug(_ data: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _log("-- DEBUG: \(data)", level: .DEBUG, explicitNoWriteToFile: false)
     }
     
     open func info(_ data: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _log("-- INFO: \(data)", level: .INFO, explicitNoWriteToFile: false)
     }
     
     open func warn(_ data: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _log("-- WARN: \(data)", level: .WARN, explicitNoWriteToFile: false)
     }
     
     open func error(_ data: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _log("-- ERROR: \(data)", level: .ERROR, explicitNoWriteToFile: false)
     }
     
     
     open func file(_ data: String) {
-        semaphore.wait()
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         _logFile("-- FILE: \(data)", filenameBase: logBaseFilename)
-        semaphore.signal()
     }
     
     open func clearLogs() {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         clearLogs(keepAmountOfDays: 0)
     }
     
     open func cleanLogs() {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         clearLogs(keepAmountOfDays: daysToStoreLogs)
     }
     
     open func clearLogs(keepAmountOfDays: Int) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         #if os(iOS)
-        semaphore.wait()
             var allowedNames = Set<String>()
             if (keepAmountOfDays > 0) {
                 for i in [Int](0...keepAmountOfDays) {
@@ -170,14 +215,16 @@ open class LogClass {
                     }
                 }
             }
-        semaphore.signal()
         #endif
     }
     
     
     
     func _log(_ data: String, level: LogLevel, explicitNoWriteToFile: Bool = false) {
-        semaphore.wait()
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         if (logPrintLevel.rawValue <= level.rawValue) {
             if (printTimestamps) {
                 let timestamp = Date().timeIntervalSince1970
@@ -193,11 +240,14 @@ open class LogClass {
         if (logFileLevel.rawValue <= level.rawValue && explicitNoWriteToFile == false) {
             _logFile(data, filenameBase: logBaseFilename)
         }
-        semaphore.signal()
     }
     
     
     func _logFile(_ data: String, filenameBase: String) {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         #if os(iOS)
             let date = Date()
             let filename = _getFilename(filenameBase: filenameBase, date: date);
@@ -214,7 +264,7 @@ open class LogClass {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy--MM-dd HH:mm:ss"
             let dateInFormat = dateFormatter.string(from: Date())
-            let content = "\(timestamp) @ \(dateInFormat) - battery:\(battery) - ram:\(usedMB)MB - " + data + "\n"
+            let content = "\(round(1000*timestamp)) @ \(dateInFormat) - battery:\(battery) - ram:\(usedMB)MB - " + data + "\n"
             let contentToWrite = content.data(using: String.Encoding.utf8)!
             
             if let fileHandle = FileHandle(forWritingAtPath: url.path) {
@@ -236,6 +286,10 @@ open class LogClass {
     }
     
     func _getFilename(filenameBase: String, date: Date) -> String {
+        // ensure single thread usage
+        lock.lock()
+        defer { lock.unlock() }
+        
         let styler = DateFormatter()
         styler.dateFormat = "yyyy-MM-dd"
         let dateString = styler.string(from: date)
